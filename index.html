@@ -2,14 +2,114 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeu du Serpent</title>
+    <title>Jeu du Serpent Amélioré</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Pour les mobiles -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Jeu du Serpent</h1>
-    <div id="score">Score: 0</div>
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <!-- Menu de démarrage -->
+    <div id="startMenu">
+        <h1>Jeu du Serpent Amélioré</h1>
+        <button id="startButton" tabindex="1">Commencer le jeu</button>
+        <button id="settingsButton" tabindex="2">Paramètres</button>
+        <h2>Tableau des scores</h2>
+        <table id="scoreTable">
+            <thead>
+                <tr>
+                    <th>Rang</th>
+                    <th>Nom</th>
+                    <th>Score</th>
+                    <th>Vagues</th>
+                    <th>Pommes</th>
+                    <th>Temps</th>
+                </tr>
+            </thead>
+            <tbody id="scoreBoard"></tbody>
+        </table>
+    </div>
+
+    <!-- Menu des paramètres (paramètres généraux) -->
+    <div id="settingsMenu" style="display: none;">
+        <h2>Paramètres</h2>
+        <label>
+            <input type="checkbox" id="musicToggle" checked tabindex="1">
+            Musique de fond
+        </label>
+        <label>
+            <input type="checkbox" id="soundToggle" checked tabindex="2">
+            Effets sonores
+        </label>
+        <label>
+            Volume des sons :
+            <input type="range" id="volumeSliderMain" min="0" max="1" step="0.1" value="1" tabindex="3">
+        </label>
+        <label for="themeSelect">Choisissez le thème :</label>
+        <select id="themeSelect" tabindex="4">
+            <option value="razer">Razer (Noir et Vert Néon)</option>
+            <option value="classic">Classique (Blanc et Noir)</option>
+            <option value="blue">Océan (Bleu)</option>
+            <option value="sunset">Coucher de Soleil (Orange et Violet)</option>
+            <!-- Ajouter d'autres thèmes ici -->
+        </select>
+        <button id="resetScoresButton" tabindex="5">Réinitialiser les scores</button>
+        <button id="backButton" tabindex="6">Retour</button>
+    </div>
+
+    <!-- Conteneur du jeu -->
+    <div id="gameContainer" style="display: none;">
+        <div id="stats">
+            <span id="score">Score: 0</span>
+            <span id="waves">Vagues: 0</span>
+            <span id="apples">Pommes: 0</span>
+            <span id="time">Temps: 00:00</span>
+        </div>
+        <div id="canvasContainer">
+            <canvas id="gameCanvas" width="400" height="400"></canvas>
+        </div>
+    </div>
+
+    <!-- Menu de pause -->
+    <div id="pauseMenu" style="display: none;">
+        <h2>Jeu en pause</h2>
+        <button id="resumeButton" tabindex="1">Reprendre</button>
+        <button id="pauseSettingsButton" tabindex="2">Paramètres</button>
+        <button id="quitButton" tabindex="3">Quitter</button>
+    </div>
+
+    <!-- Menu des paramètres pendant la pause -->
+    <div id="pauseSettingsMenu" style="display: none;">
+        <h2>Paramètres</h2>
+        <label>
+            <input type="checkbox" id="musicTogglePause" checked tabindex="1">
+            Musique de fond
+        </label>
+        <label>
+            <input type="checkbox" id="soundTogglePause" checked tabindex="2">
+            Effets sonores
+        </label>
+        <label>
+            Volume des sons :
+            <input type="range" id="volumeSliderPause" min="0" max="1" step="0.1" value="1" tabindex="3">
+        </label>
+        <label for="themeSelectPause">Choisissez le thème :</label>
+        <select id="themeSelectPause" tabindex="4">
+            <option value="razer">Razer (Noir et Vert Néon)</option>
+            <option value="classic">Classique (Blanc et Noir)</option>
+            <option value="blue">Océan (Bleu)</option>
+            <option value="sunset">Coucher de Soleil (Orange et Violet)</option>
+            <!-- Ajouter d'autres thèmes ici -->
+        </select>
+        <button id="backToPauseButton" tabindex="5">Retour</button>
+    </div>
+
+    <!-- Contrôles tactiles -->
+    <div id="touchControls" style="display: none;">
+        <div id="touchUp" class="touch-button">↑</div>
+        <div id="touchLeft" class="touch-button">←</div>
+        <div id="touchDown" class="touch-button">↓</div>
+        <div id="touchRight" class="touch-button">→</div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
