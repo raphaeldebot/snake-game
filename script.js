@@ -77,7 +77,7 @@ let currentTheme = themeSelect.value;
 // Objets du jeu
 let obstacles = [];
 let currentPatternIndex = 0;
-let patternDuration = 15000; // Durée de chaque motif en millisecondes
+let patternDuration = 1500; // Durée de chaque motif en millisecondes
 let patternStartTime = null;
 let patternActive = true;
 
@@ -614,7 +614,7 @@ function generateGridPattern() {
 // 10. Vague avec obstacles qui se téléportent
 function generateTeleportingPattern() {
     for (let i = 0; i < 5 + level; i++) {
-        obstacles.push({
+        let obstacle = {
             type: 'diamond',
             x: Math.random() * canvasWidth,
             y: Math.random() * canvasHeight,
@@ -623,8 +623,23 @@ function generateTeleportingPattern() {
             speedY: 0,
             teleportInterval: 1000 + Math.random() * 1000,
             lastTeleport: Date.now()
-        });
+        };
+
+        obstacles.push(obstacle);
+
+        // Appeler la fonction pour supprimer l'obstacle après un certain temps
+        removeObstacleAfterDelay(obstacle, 5000 + Math.random() * 5000);
     }
+}
+
+// Fonction pour supprimer un obstacle après un délai
+function removeObstacleAfterDelay(obstacle, delay) {
+    setTimeout(() => {
+        let index = obstacles.indexOf(obstacle);
+        if (index > -1) {
+            obstacles.splice(index, 1);
+        }
+    }, delay);
 }
 
 // Mise à jour des obstacles
